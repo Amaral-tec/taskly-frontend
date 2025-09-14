@@ -1,4 +1,4 @@
-export interface AgendaRequestDTO {
+export interface CalendarRequestDTO {
   title: string;
   description?: string;
   startDateTime: string;
@@ -9,7 +9,7 @@ export interface AgendaRequestDTO {
   userId?: number;
 }
 
-export interface AgendaResponseDTO {
+export interface CalendarResponseDTO {
   id: number;
   publicId: string;
   title: string;

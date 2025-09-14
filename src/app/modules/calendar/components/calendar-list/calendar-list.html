@@ -1,0 +1,7 @@
+<button (click)="loadCalendars()">Carregar Agendas</button>
+
+<ul>
+  @for (calendar of calendars; track calendar.id) {
+    <li>{{ calendar.title }} - {{ calendar.startDateTime }}</li>
+  }
+</ul>
