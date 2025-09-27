@@ -1,7 +1,50 @@
-<button (click)="loadCalendars()">Carregar Agendas</button>
+<div class="calendar-container">
+  <div class="calendar-header">
+    <button mat-button color="accent" (click)="goHome()">
+      ← Back to Home
+    </button>
+    <h2>Calendar</h2>
+  </div>
 
-<ul>
-  @for (calendar of calendars; track calendar.id) {
-    <li>{{ calendar.title }} - {{ calendar.startDateTime }}</li>
-  }
-</ul>
+  <button mat-raised-button color="primary" (click)="createEvent()">
+    + New Event
+  </button>
+
+  <mat-table [dataSource]="events" class="mat-elevation-z2">
+    
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+      <mat-cell *matCellDef="let event"> {{ event.title }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dates">
+      <mat-header-cell *matHeaderCellDef> Dates </mat-header-cell>
+      <mat-cell *matCellDef="let event">
+        {{ event.startDateTime | date:'short' }} - {{ event.endDateTime | date:'short' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let event"> {{ event.status }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let event">
+        <button mat-icon-button color="primary" (click)="editEvent(event.publicId)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="markAsCompleted(event.publicId)">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteEvent(event.publicId)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

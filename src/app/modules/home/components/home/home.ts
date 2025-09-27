@@ -1,26 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
+import { Auth } from '../../../../core/authentication/auth';
 
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet,
-    MatSidenavModule,
-    MatToolbarModule,
     MatIconModule,
-    MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
-export class Home {}
+export class Home {
+  private router = inject(Router);
+  private auth = inject(Auth);
+
+  goTo(path: string) {
+    this.router.navigateByUrl(path);
+  }
+
+  logout() {
+    this.auth.logout();
+  }
+}

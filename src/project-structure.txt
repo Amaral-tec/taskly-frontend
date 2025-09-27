@@ -1,0 +1,42 @@
+app/
+ ├─ core/
+ │   └─ authentication/
+ │       ├─ auth.guard.ts
+ │       ├─ auth.interceptor.ts
+ │       ├─ auth.ts
+ │       └─ error.interceptor.ts
+ ├─ environments/
+ │   ├─ environment.prod.ts
+ │   └─ environment.ts
+ ├─ modules/
+ │   ├─ auth/
+ │   │   └─ login/
+ │   │		 ├─ login.html
+ │   │		 ├─ login.scss
+ │   │		 └─ login.ts
+ │   ├─ calendar/
+ │   │   ├─ components/
+ │   │	 │ 	 ├─ calendar-detail/
+ │   │	 │ 	 ├─ calendar-form/
+ │   │	 │ 	 └─ calendar-list/
+ │   │   ├─ models/
+ │   │	 │ 	 ├─ calendar.model.ts
+ │   │	 │ 	 └─ recurrence-type.enum.ts 
+ │   │   ├─ services/
+ │   │	 │ 	 └─ calendar.ts 
+ │   │	 ├─ calendar-module.ts
+ │   │	 └─ calendar-routing.module.ts
+ │   └─ home/
+ │       └─ components/
+ │   	   	 ├─ home.html
+ │   	  	 ├─ home.scss
+ │   	  	 └─ home.ts
+ ├─ styles/ 
+ ├─ styles.scss      
+ ├─ app.config.ts
+ ├─ app.html
+ ├─ app.routes.ts
+ ├─ app.scss
+ ├─ app.ts 
+ ├─ app.ts  
+ └─ main.ts

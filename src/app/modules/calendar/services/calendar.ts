@@ -8,7 +8,7 @@ import { CalendarRequestDTO, CalendarResponseDTO } from '../models/calendar.mode
   providedIn: 'root'
 })
 export class CalendarService {
-  private baseUrl = `${environment.apiUrl}/calendar`; 
+  private baseUrl = `${environment.apiUrl}/api/calendar`; 
 
   constructor(private http: HttpClient) {}
 

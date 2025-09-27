@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 export interface LoginRequest {
   login: string;
@@ -19,6 +20,7 @@ export interface LoginResponse {
 })
 export class Auth {
   private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
   private readonly apiUrl = `${environment.apiUrl}/auth`;
 
   login(login: string, password: string): Observable<LoginResponse> {
@@ -33,6 +35,7 @@ export class Auth {
 
   logout() {
     sessionStorage.removeItem('auth_token');
+    this.router.navigateByUrl(`${this.apiUrl}/login`);
   }
 
   getToken(): string | null {

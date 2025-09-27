@@ -1,24 +1,73 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { CalendarForm } from '../calendar-form/calendar-form';
 import { CalendarService } from '../../services/calendar';
-import { CalendarResponseDTO, CalendarRequestDTO } from '../../models/calendar.model';
+import { CalendarResponseDTO } from '../../models/calendar.model';
+
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-calendar-list',
-  templateUrl: './calendar-list.html'
+  standalone: true,
+  templateUrl: './calendar-list.html',
+  styleUrls: ['./calendar-list.scss'],
+  imports: [
+    CommonModule, 
+    DatePipe,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule
+  ]
 })
 export class CalendarList implements OnInit {
-  calendars: CalendarResponseDTO[] = [];
+  private service = inject(CalendarService);
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
+
+  events: CalendarResponseDTO[] = [];
+  displayedColumns = ['title', 'dates', 'status', 'actions'];
 
   constructor(private calendarService: CalendarService) {}
 
   ngOnInit(): void {
-    this.loadCalendars();
+    this.loadEvents();
   }
 
-  loadCalendars(): void {
-    this.calendarService.getAll().subscribe({
-      next: (data) => this.calendars = data,
-      error: (err) => console.error('Erro ao carregar agendas', err)
+  loadEvents() {
+    this.service.getAll().subscribe({
+      next: (res) => this.events = res,
+      error: (err) => console.error('Error loading events', err)
     });
+  }
+
+  createEvent() {
+    const dialogRef = this.dialog.open(CalendarForm, {
+      width: '500px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.loadEvents();
+    });
+  }
+
+  editEvent(publicId: string) {
+    this.router.navigateByUrl(`/calendar/${publicId}/edit`);
+  }
+
+  markAsCompleted(publicId: string) {
+    this.service.markAsCompleted(publicId).subscribe(() => this.loadEvents());
+  }
+
+  deleteEvent(publicId: string) {
+    this.service.delete(publicId).subscribe(() => this.loadEvents());
+  }
+
+  goHome() {
+    this.router.navigateByUrl('/');
   }
 }

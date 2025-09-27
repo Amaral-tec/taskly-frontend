@@ -1,0 +1,22 @@
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 16px; 
+  max-width: 600px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+[mat-dialog-actions] {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+textarea[matInput] {
+  min-height: 80px;
+}

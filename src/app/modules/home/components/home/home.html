@@ -1,26 +1,50 @@
-<mat-sidenav-container class="home-container">
-  <mat-sidenav #sidenav mode="side" opened>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/calendar" (click)="sidenav.close()">Calendar</a>
-    </mat-nav-list>
-  </mat-sidenav>
+<div class="home-container">
+  <h1 class="home-title">Welcome</h1>
+  <p class="home-subtitle">Choose a module to get started:</p>
 
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span class="toolbar-spacer"></span>
-      <button mat-icon-button>
-        <mat-icon>notifications</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>account_circle</mat-icon>
-      </button>
-    </mat-toolbar>
+  <div class="modules-grid">
+    <mat-card class="module-card" (click)="goTo('/calendar')">
+      <mat-card-header>
+        <mat-icon>event</mat-icon>
+        <mat-card-title>Calendar</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Create and manage events with reminders.</p>
+      </mat-card-content>
+    </mat-card>
 
-    <div class="home-body">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <mat-card class="module-card" (click)="goTo('/todo')">
+      <mat-card-header>
+        <mat-icon>check_circle</mat-icon>
+        <mat-card-title>To-Do</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Task lists with priorities and completion tracking.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="module-card" (click)="goTo('/shopping')">
+      <mat-card-header>
+        <mat-icon>shopping_cart</mat-icon>
+        <mat-card-title>Shopping List</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Categorized shopping items.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="module-card" (click)="goTo('/finance')">
+      <mat-card-header>
+        <mat-icon>account_balance_wallet</mat-icon>
+        <mat-card-title>Finance</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Recurring bills, income and expense tracking.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <button mat-stroked-button color="warn" (click)="logout()" class="logout-btn">
+    Logout
+  </button>
+</div>

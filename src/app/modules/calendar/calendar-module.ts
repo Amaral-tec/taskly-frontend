@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { CalendarList } from './components/calendar-list/calendar-list';
 
-
+const routes: Routes = [
+  { path: '', component: CalendarList },
+  { path: 'create', component: CalendarList },
+  { path: ':publicId/edit', component: CalendarList }
+];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class CalendarModule { }
