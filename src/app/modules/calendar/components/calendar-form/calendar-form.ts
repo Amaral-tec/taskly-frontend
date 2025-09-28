@@ -1,12 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { CalendarService } from '../../services/calendar';
 import { CommonModule } from '@angular/common';
+import { set, formatISO } from 'date-fns';
 
-import { CalendarRequestDTO } from '../../models/calendar.model';
+import { CalendarService } from '../../services/calendar';
+import { CalendarRequestDTO, CalendarResponseDTO } from '../../models/calendar.model';
 import { RecurrenceType, recurrenceOptions } from '../../models/recurrence-type.enum';
 
+import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,21 +30,38 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
   ]
 })
-export class CalendarForm {
+export class CalendarForm implements OnInit {
   private fb = inject(FormBuilder);
   private dialogRef = inject(MatDialogRef<CalendarForm>);
   private service = inject(CalendarService);
+  private data = inject(MAT_DIALOG_DATA, { optional: true });
 
   eventForm = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
     description: ['', [Validators.maxLength(500)]],
     startDateTime: ['', Validators.required],
-    endDateTime: [''],
+    endDateTime: ['', Validators.required],
     reminder: [''],
     recurrenceType: [RecurrenceType.NONE, Validators.required]
   });
 
-  saveEvent() {
+  recurrenceOptions = recurrenceOptions;
+
+  ngOnInit(): void {
+    if (this.data?.publicId) {
+      this.service.getById(this.data.publicId).subscribe({
+        next: (event: CalendarResponseDTO) => {
+          this.eventForm.patchValue({
+            ...event,
+            recurrenceType: event.recurrenceType as RecurrenceType
+          });
+        },
+        error: (err) => console.error('Error loading event', err)
+      });
+    }
+  }
+
+  saveOrUpdateEvent() {
     if (this.eventForm.valid) {
       const formValue = this.eventForm.value;
 
@@ -53,13 +71,20 @@ export class CalendarForm {
         startDateTime: formValue.startDateTime!,
         endDateTime: formValue.endDateTime || '',
         reminder: formValue.reminder || '',
-        recurrenceType: formValue.recurrenceType as RecurrenceType
+        recurrenceType: formValue.recurrenceType as RecurrenceType,
       };
 
-      this.service.create(payload).subscribe({
-        next: () => this.dialogRef.close(true),
-        error: (err) => console.error(err)
-      });
+      if (this.data?.publicId) {
+        this.service.update(this.data.publicId, payload).subscribe({
+          next: () => this.dialogRef.close(true),
+          error: (err) => console.error(err),
+        });
+      } else {
+        this.service.create(payload).subscribe({
+          next: () => this.dialogRef.close(true),
+          error: (err) => console.error(err),
+        });
+      }
     }
   }
 
@@ -67,5 +92,7 @@ export class CalendarForm {
     this.dialogRef.close(false);
   }
 
-  recurrenceOptions = recurrenceOptions;
+  get isEditMode(): boolean {
+    return !!this.data?.publicId;
+  }
 }

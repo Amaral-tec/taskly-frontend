@@ -1,5 +1,6 @@
-<h2 mat-dialog-title>New Event</h2>
-<form [formGroup]="eventForm" (ngSubmit)="saveEvent()">
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Event' : 'New Event' }}</h2>
+
+<form [formGroup]="eventForm" (ngSubmit)="saveOrUpdateEvent()">
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Title</mat-label>
     <input matInput formControlName="title" />
@@ -11,26 +12,22 @@
     <textarea matInput formControlName="description"></textarea>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Start Date & Time</mat-label>
-    <input matInput [matDatepicker]="startPicker" formControlName="startDateTime" />
-    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-    <mat-datepicker #startPicker></mat-datepicker>
+    <input matInput type="datetime-local" formControlName="startDateTime">
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>End Date & Time</mat-label>
-    <input matInput [matDatepicker]="endPicker" formControlName="endDateTime" />
-    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-    <mat-datepicker #endPicker></mat-datepicker>
+    <input matInput type="datetime-local" formControlName="endDateTime">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Recurrence</mat-label>
     <mat-select formControlName="recurrenceType">
-        <mat-option *ngFor="let option of recurrenceOptions" [value]="option">
+      <mat-option *ngFor="let option of recurrenceOptions" [value]="option">
         {{ option }}
-        </mat-option>
+      </mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -44,7 +41,7 @@
   <div mat-dialog-actions>
     <button mat-button type="button" (click)="close()">Cancel</button>
     <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">
-      Save
+      {{ isEditMode ? 'Update' : 'Save' }}
     </button>
   </div>
 </form>

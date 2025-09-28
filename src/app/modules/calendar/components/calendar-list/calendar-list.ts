@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+
 import { CalendarForm } from '../calendar-form/calendar-form';
 import { CalendarService } from '../../services/calendar';
 import { CalendarResponseDTO } from '../../models/calendar.model';
@@ -31,32 +32,37 @@ export class CalendarList implements OnInit {
   events: CalendarResponseDTO[] = [];
   displayedColumns = ['title', 'dates', 'status', 'actions'];
 
-  constructor(private calendarService: CalendarService) {}
-
   ngOnInit(): void {
     this.loadEvents();
   }
 
   loadEvents() {
     this.service.getAll().subscribe({
-      next: (res) => this.events = res,
+      next: (res) => (this.events = res),
       error: (err) => console.error('Error loading events', err)
     });
   }
 
   createEvent() {
     const dialogRef = this.dialog.open(CalendarForm, {
-      width: '500px',
+      width: '600px',
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) this.loadEvents();
     });
   }
 
   editEvent(publicId: string) {
-    this.router.navigateByUrl(`/calendar/${publicId}/edit`);
+    const dialogRef = this.dialog.open(CalendarForm, {
+      width: '600px',
+      data: { publicId }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadEvents();
+    });
   }
 
   markAsCompleted(publicId: string) {
