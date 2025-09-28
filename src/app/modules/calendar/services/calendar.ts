@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { CalendarRequestDTO, CalendarResponseDTO } from '../models/calendar.model';
+import { StatusType } from '../models/status-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,8 @@ export class CalendarService {
     return this.http.delete<void>(`${this.baseUrl}/${publicId}`);
   }
 
-  markAsCompleted(publicId: string): Observable<CalendarResponseDTO> {
-    return this.http.post<CalendarResponseDTO>(`${this.baseUrl}/${publicId}/complete`, {});
+  updateStatus(publicId: string, status: StatusType): Observable<CalendarResponseDTO> {
+    return this.http.post<CalendarResponseDTO>(`${this.baseUrl}/${publicId}/${status}`, {});
   }
 
   setReminder(publicId: string, reminder: string): Observable<CalendarResponseDTO> {

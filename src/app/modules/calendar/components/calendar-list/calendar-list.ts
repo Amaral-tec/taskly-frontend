@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CalendarForm } from '../calendar-form/calendar-form';
 import { CalendarService } from '../../services/calendar';
 import { CalendarResponseDTO } from '../../models/calendar.model';
+import { StatusType } from '../../models/status-type.enum';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
@@ -28,6 +29,8 @@ export class CalendarList implements OnInit {
   private service = inject(CalendarService);
   private router = inject(Router);
   private dialog = inject(MatDialog);
+
+  StatusType = StatusType;
 
   events: CalendarResponseDTO[] = [];
   displayedColumns = ['title', 'dates', 'status', 'actions'];
@@ -65,8 +68,8 @@ export class CalendarList implements OnInit {
     });
   }
 
-  markAsCompleted(publicId: string) {
-    this.service.markAsCompleted(publicId).subscribe(() => this.loadEvents());
+  updateStatus(publicId: string, status: StatusType) {
+    this.service.updateStatus(publicId, status).subscribe(() => this.loadEvents());
   }
 
   deleteEvent(publicId: string) {

@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { set, formatISO } from 'date-fns';
 
 import { CalendarService } from '../../services/calendar';
 import { CalendarRequestDTO, CalendarResponseDTO } from '../../models/calendar.model';

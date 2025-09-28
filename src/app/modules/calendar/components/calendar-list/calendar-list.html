@@ -32,14 +32,20 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
       <mat-cell *matCellDef="let event">
-        <button mat-icon-button color="primary" (click)="editEvent(event.publicId)">
-          <mat-icon>edit</mat-icon>
+        <button mat-icon-button (click)="editEvent(event.publicId)" matTooltip="Edit Event">
+          <mat-icon color="primary">edit</mat-icon>
         </button>
-        <button mat-icon-button color="accent" (click)="markAsCompleted(event.publicId)">
-          <mat-icon>check_circle</mat-icon>
+        <button mat-icon-button (click)="updateStatus(event.publicId, StatusType.CONFIRMED)" matTooltip="Confirm Event">
+          <mat-icon color="accent">event_available</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="deleteEvent(event.publicId)">
-          <mat-icon>delete</mat-icon>
+        <button mat-icon-button (click)="updateStatus(event.publicId, StatusType.COMPLETED)" matTooltip="Mark as Completed">
+          <mat-icon color="primary">done</mat-icon>
+        </button>
+        <button mat-icon-button (click)="updateStatus(event.publicId, StatusType.CANCELED)" matTooltip="Cancel Event">
+          <mat-icon color="warn">cancel</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteEvent(event.publicId)" matTooltip="Delete Event">
+          <mat-icon color="warn">delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
