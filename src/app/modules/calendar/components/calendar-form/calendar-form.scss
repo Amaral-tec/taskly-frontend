@@ -20,3 +20,12 @@ form {
 textarea[matInput] {
   min-height: 80px;
 }
+
+.error {
+  grid-column: 1 / -1;
+  color: #d32f2f; 
+  font-size: 0.875rem;
+  margin-top: -8px; 
+  margin-bottom: 8px;
+}
+

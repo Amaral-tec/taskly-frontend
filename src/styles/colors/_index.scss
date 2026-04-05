@@ -1,1 +1,146 @@
-@use './m3-colors';
+/* =========================
+   COLOR SYSTEM
+   ========================= */
+
+/* Primary palette */
+$primary: #3f51b5;
+$primary-light: #6573c3;
+$primary-dark: #2c387e;
+
+/* Secondary */
+$secondary: #00bcd4;
+$secondary-light: #62efff;
+$secondary-dark: #008ba3;
+
+/* Success */
+$success: #2ecc71;
+$success-dark: #27ae60;
+
+/* Warning */
+$warning: #f39c12;
+$warning-dark: #e67e22;
+
+/* Danger */
+$danger: #e74c3c;
+$danger-dark: #c0392b;
+
+/* Neutral */
+$white: #ffffff;
+$black: #000000;
+
+$gray-100: #f8f9fa;
+$gray-200: #ecf0f1;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+/* Background */
+$background: #f5f6fa;
+$surface: #ffffff;
+
+/* Text */
+$text-primary: #2c3e50;
+$text-secondary: #6c757d;
+$text-muted: #95a5a6;
+
+/* =========================
+   CSS VARIABLES
+   ========================= */
+
+:root {
+
+  /* Primary */
+  --primary: #{$primary};
+  --primary-light: #{$primary-light};
+  --primary-dark: #{$primary-dark};
+
+  /* Secondary */
+  --secondary: #{$secondary};
+
+  /* Status */
+  --success: #{$success};
+  --warning: #{$warning};
+  --danger: #{$danger};
+
+  /* Neutral */
+  --white: #{$white};
+  --gray-100: #{$gray-100};
+  --gray-200: #{$gray-200};
+  --gray-300: #{$gray-300};
+  --gray-400: #{$gray-400};
+  --gray-500: #{$gray-500};
+  --gray-600: #{$gray-600};
+  --gray-700: #{$gray-700};
+  --gray-800: #{$gray-800};
+  --gray-900: #{$gray-900};
+
+  /* Layout */
+  --background: #{$background};
+  --surface: #{$surface};
+
+  /* Text */
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-muted: #{$text-muted};
+}
+
+/* =========================
+   GLOBAL COLOR CLASSES
+   ========================= */
+
+.bg-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.bg-secondary {
+  background: var(--secondary);
+  color: white;
+}
+
+.bg-success {
+  background: var(--success);
+  color: white;
+}
+
+.bg-warning {
+  background: var(--warning);
+  color: white;
+}
+
+.bg-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.bg-surface {
+  background: var(--surface);
+}
+
+.bg-background {
+  background: var(--background);
+}

@@ -1,8 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
-@use 'styles/reboot';
-@use 'styles/themes';
-@use 'styles/colors';
-@use 'styles/grid';
-@use 'styles/helpers';
-@use 'styles/plugins';
-@use 'styles/custom';
+/* =========================
+   GLOBAL STYLE ENTRY POINT
+   ========================= */
+
+/* Reset */
+@use './styles/reboot';
+
+/* Colors */
+@use './styles/colors/index';
+
+/* Grid system */
+
+/* Helpers */
+
+/* Plugins */
+
+/* Themes */
+@use './styles/themes';
+
+/* Custom styles */
+
+/* Global body style */
+body {
+  margin: 0;
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  background: #f5f6fa;
+  color: #2c3e50;
+}
+
+/* Layout base */
+.page-container {
+  padding: 24px;
+}
+
+/* Card padrão */
+.app-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Títulos */
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 20px;
+}

@@ -1,51 +1,63 @@
 <div class="calendar-container">
-  <div class="calendar-header">
+  <div class="calendar-header mat-elevation-z2">
     <button mat-button color="accent" (click)="goHome()">
       ← Back to Home
     </button>
-    <h2>Calendar</h2>
+    <h2 class="calendar-title">Calendar</h2>
+    <button mat-raised-button color="primary" (click)="createEvent()">
+      + New Event
+    </button>
   </div>
 
-  <button mat-raised-button color="primary" (click)="createEvent()">
-    + New Event
-  </button>
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="calendar-filters mat-elevation-z2">
+    <input formControlName="title" placeholder="Title" matInput>
+    <mat-select formControlName="status" placeholder="Status" multiple>
+      <mat-option *ngFor="let status of statusOptions" [value]="status">
+        {{ status }}
+      </mat-option>
+    </mat-select>
+    <input type="date" formControlName="startDate" placeholder="Start Date" matInput>
+    <input type="date" formControlName="endDate" placeholder="End Date" matInput>
+    <button mat-raised-button color="primary" type="submit">Apply</button>
+    <button mat-raised-button type="button" (click)="resetFilters()">Reset</button>
+  </form>
 
-  <mat-table [dataSource]="events" class="mat-elevation-z2">
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2">
     
     <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="title"> Title </mat-header-cell>
       <mat-cell *matCellDef="let event"> {{ event.title }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="dates">
-      <mat-header-cell *matHeaderCellDef> Dates </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="startDateTime"> Dates </mat-header-cell>
       <mat-cell *matCellDef="let event">
         {{ event.startDateTime | date:'short' }} - {{ event.endDateTime | date:'short' }}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="status"> Status </mat-header-cell>
       <mat-cell *matCellDef="let event"> {{ event.status }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
       <mat-cell *matCellDef="let event">
-        <button mat-icon-button (click)="editEvent(event.publicId)" matTooltip="Edit Event">
-          <mat-icon color="primary">edit</mat-icon>
+        <button mat-icon-button color="primary" (click)="editEvent(event.publicId)" matTooltip="Edit Event">
+          <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="updateStatus(event.publicId, StatusType.CONFIRMED)" matTooltip="Confirm Event">
-          <mat-icon color="accent">event_available</mat-icon>
+        <button mat-icon-button color="accent" (click)="updateStatus(event.publicId, StatusType.CONFIRMED)" matTooltip="Confirm Event">
+          <mat-icon>event_available</mat-icon>
         </button>
-        <button mat-icon-button (click)="updateStatus(event.publicId, StatusType.COMPLETED)" matTooltip="Mark as Completed">
-          <mat-icon color="primary">done</mat-icon>
+        <button mat-icon-button color="primary" (click)="updateStatus(event.publicId, StatusType.COMPLETED)" matTooltip="Mark as Completed">
+          <mat-icon>done</mat-icon>
         </button>
-        <button mat-icon-button (click)="updateStatus(event.publicId, StatusType.CANCELED)" matTooltip="Cancel Event">
-          <mat-icon color="warn">cancel</mat-icon>
+        <button mat-icon-button color="warn" (click)="updateStatus(event.publicId, StatusType.CANCELED)" matTooltip="Cancel Event">
+          <mat-icon>cancel</mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteEvent(event.publicId)" matTooltip="Delete Event">
-          <mat-icon color="warn">delete</mat-icon>
+        <button mat-icon-button color="warn" (click)="deleteEvent(event.publicId)" matTooltip="Delete Event">
+          <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

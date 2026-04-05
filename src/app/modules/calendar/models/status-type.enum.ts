@@ -5,4 +5,11 @@ export enum StatusType {
   CANCELED = 'CANCELED'
 }
 
+export const StatusDisplayMap: Record<StatusType, string> = {
+  [StatusType.SCHEDULED]: 'Scheduled',
+  [StatusType.CONFIRMED]: 'Confirmed',
+  [StatusType.COMPLETED]: 'Completed',
+  [StatusType.CANCELED]: 'Canceled'
+};
+
 export const statusOptions = Object.values(StatusType);

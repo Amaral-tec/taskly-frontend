@@ -27,7 +27,7 @@ export class CalendarService {
 
   search(filters: {
       title?: string;
-      status?: string;
+      status?: [];
       startDate?: string;
       endDate?: string;
     }): Observable<CalendarResponseDTO[]> {

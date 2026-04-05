@@ -31,7 +31,40 @@ app/
  │   	   	 ├─ home.html
  │   	  	 ├─ home.scss
  │   	  	 └─ home.ts
- ├─ styles/ 
+ ├─ styles/
+ │   ├─ color/
+ │   │   └─ index.scss
+ │   ├─ custom/
+ │   │	 └─ index.scss  
+ │   ├─ grid/
+ │   │	 ├─ index.scss
+ │   │	 ├─ breakpoints.scss
+ │   │	 ├─ columns.scss
+ │   │	 ├─ grid.scss 
+ │   │	 └─ variables.scss
+ │   ├─ helpers/
+ │   │	 ├─ index.scss
+ │   │	 ├─ alignment.scss
+ │   │	 ├─ api.scss
+ │   │	 ├─ border.scss 
+ │   │	 ├─ display.scss 
+ │   │	 ├─ flexbox.scss 
+ │   │	 ├─ functions.scss 
+ │   │	 ├─ interaction.scss 
+ │   │	 ├─ object.scss 
+ │   │	 ├─ overflow.scss 
+ │   │	 ├─ position.scss 
+ │   │	 ├─ rounded.scss      
+ │   │	 ├─ sizing.scss     
+ │   │	 ├─ spacing.scss     
+ │   │	 ├─ text.scss       
+ │   │	 └─ variables.scss 
+ │   ├─ plugins/
+ │   │	 ├─ index.scss
+ │   │	 ├─ ngx-formly.scss
+ │   │	 └─ ngx-toastr.scss  
+ │   ├─ rebbot.scss
+ │   └─ themes.scss    
  ├─ styles.scss      
  ├─ app.config.ts
  ├─ app.html
